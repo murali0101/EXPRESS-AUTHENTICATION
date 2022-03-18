@@ -23,6 +23,10 @@ userSchema.pre("save", function (next) {
   this.password = hash;
   return next();
 });
+
+userSchema.methods.checkPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 const User = mongoose.model("user", userSchema);
 module.exports = User;
 // name ( required ) email ( required ) password ( required ) timestamps
